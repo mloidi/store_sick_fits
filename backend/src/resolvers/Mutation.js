@@ -10,14 +10,25 @@ const Mutations = {
     );
 
     return item;
+  },
+  async updateItem(parent, args, ctx, info) {
+    const update = { ...args };
+    delete update.id;
+    const item = await ctx.db.mutation.updateItem(
+      {
+        data: update,
+        where: { id: args.id }
+      },
+      info
+    );
+    return item;
+  },
+  async deleteItem(parent, args, ctx, info) {
+    const where = { id: args.id };
+    const item = await ctx.db.query.item({ where }, `{ id title}`);
+    console.log(item);
+    return ctx.db.mutation.deleteItem({ where }, info);
   }
-
-  // createDog(parent, args, ctx, info) {
-  //   global.dogs = global.dogs || [];
-  //   const newDog = { name: args.name};
-  //   global.dogs.push(newDog);
-  //   console.log(args);
-  // }
 };
 
 module.exports = Mutations;
