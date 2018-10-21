@@ -208,6 +208,26 @@ const Mutations = {
       },
       info
     );
+  },
+  async removeFromCart(parent, args, ctx, info) {
+    const { userId } = ctx.request;
+    if (!userId) {
+      throw new Error('You must be signed in soooon');
+    }
+    const cartItem = await ctx.db.query.cartItem(
+      {
+        where: { id: args.id }
+      },
+      `{id, user{id}}`
+    );
+    if (!cartItem) throw new Error('No cart item found!!');
+    if (cartItem.user.id !== userId) throw new Error('It is not your cart!!');
+    return ctx.db.mutation.deleteCartItem(
+      {
+        where: { id: args.id }
+      },
+      info
+    );
   }
 };
 
