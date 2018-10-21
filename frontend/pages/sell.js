@@ -1,8 +1,11 @@
 import CreateItem from '../components/CreateItem';
+import PleaseSign from '../components/PleaseSign';
 
 const Sell = props => (
   <div>
-    <CreateItem />
+    <PleaseSign>
+      <CreateItem />
+    </PleaseSign>
   </div>
 );
 
