@@ -1,5 +1,4 @@
 const sgMail = require('@sendgrid/mail');
-const http = require('https');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
