@@ -2,7 +2,8 @@ node_modules/
 .DS_Store
 *.log
 haters/
-.next/
+**/fronted/.vscode/
 .build/
+**/fronted/.next/
 layout.md
 variables.env
