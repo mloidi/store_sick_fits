@@ -2,7 +2,7 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { Mutation } from 'react-apollo';
 import Router from 'next/router';
-import NProgrss from 'nprogress';
+import NProgress from 'nprogress';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import calcTotalPrice from '../lib/calcTotalPrice';
@@ -28,15 +28,20 @@ function totalItems(cart) {
 }
 
 class TakeMyMoney extends React.Component {
-  onToken = (response, createOrder) => {
-    console.log(response.id);
-    createOrder({
+  onToken = async (response, createOrder) => {
+    NProgress.start();
+    const order = await createOrder({
       variables: {
         token: response.id
       }
     }).catch(error => {
       alert(err.message);
     });
+    Router.push({
+      pathname: './order',
+      query: { id: order.data.createOrder.id }
+    });
+    console.log(order);
   };
   render() {
     return (
@@ -51,7 +56,9 @@ class TakeMyMoney extends React.Component {
                 name="Mikel tutorial"
                 amount={calcTotalPrice(me.cart)}
                 description={`Order of ${totalItems(me.cart)} items!`}
-                image={me.cart[0].item && me.cart[0].item.image}
+                image={
+                  me.cart.lenght && me.cart[0].image && me.cart[0].item.image
+                }
                 stripeKey="pk_test_a0lxMkMwG2X7MmdjQsJhL5mj"
                 currency="USD"
                 email={me.email}
