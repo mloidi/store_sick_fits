@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/mloidi-d9a779/dbPrisma/dev
-# timestamp: Wed Oct 24 2018 19:40:46 GMT+0200 (CEST)
+# timestamp: Thu Oct 25 2018 19:42:53 GMT+0200 (CEST)
 
 type AggregateCartItem {
   count: Int!
@@ -129,6 +129,10 @@ input CartItemUpdateInput {
   user: UserUpdateOneRequiredWithoutCartInput
 }
 
+input CartItemUpdateManyInput {
+  quantity: Int
+}
+
 input CartItemUpdateManyWithoutUserInput {
   create: [CartItemCreateWithoutUserInput!]
   connect: [CartItemWhereUniqueInput!]
@@ -232,6 +236,8 @@ input CartItemWhereInput {
 input CartItemWhereUniqueInput {
   id: ID
 }
+
+scalar DateTime
 
 type Item implements Node {
   id: ID!
@@ -359,6 +365,14 @@ input ItemUpdateInput {
   largeImage: String
   price: Int
   user: UserUpdateOneRequiredInput
+}
+
+input ItemUpdateManyInput {
+  title: String
+  description: String
+  image: String
+  largeImage: String
+  price: Int
 }
 
 input ItemUpdateOneInput {
@@ -640,11 +654,11 @@ type Mutation {
   upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
   upsertOrderItem(where: OrderItemWhereUniqueInput!, create: OrderItemCreateInput!, update: OrderItemUpdateInput!): OrderItem!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyCartItems(data: CartItemUpdateInput!, where: CartItemWhereInput): BatchPayload!
-  updateManyOrders(data: OrderUpdateInput!, where: OrderWhereInput): BatchPayload!
-  updateManyItems(data: ItemUpdateInput!, where: ItemWhereInput): BatchPayload!
-  updateManyOrderItems(data: OrderItemUpdateInput!, where: OrderItemWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyCartItems(data: CartItemUpdateManyInput!, where: CartItemWhereInput): BatchPayload!
+  updateManyOrders(data: OrderUpdateManyInput!, where: OrderWhereInput): BatchPayload!
+  updateManyItems(data: ItemUpdateManyInput!, where: ItemWhereInput): BatchPayload!
+  updateManyOrderItems(data: OrderItemUpdateManyInput!, where: OrderItemWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyInput!, where: UserWhereInput): BatchPayload!
   deleteManyCartItems(where: CartItemWhereInput): BatchPayload!
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
   deleteManyItems(where: ItemWhereInput): BatchPayload!
@@ -670,6 +684,8 @@ type Order implements Node {
   total: Int!
   user: User!
   charge: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -1120,16 +1136,18 @@ enum OrderOrderByInput {
   total_DESC
   charge_ASC
   charge_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type OrderPreviousValues {
   id: ID!
   total: Int!
   charge: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type OrderSubscriptionPayload {
@@ -1176,6 +1194,11 @@ input OrderUpdateInput {
   charge: String
   items: OrderItemUpdateManyInput
   user: UserUpdateOneRequiredInput
+}
+
+input OrderUpdateManyInput {
+  total: Int
+  charge: String
 }
 
 input OrderWhereInput {
@@ -1289,6 +1312,50 @@ input OrderWhereInput {
 
   """All values not ending with the given string."""
   charge_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   items_every: OrderItemWhereInput
   items_some: OrderItemWhereInput
   items_none: OrderItemWhereInput
@@ -1504,6 +1571,15 @@ input UserUpdateInput {
   resetTokenExpiry: String
   permissions: UserUpdatepermissionsInput
   cart: CartItemUpdateManyWithoutUserInput
+}
+
+input UserUpdateManyInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: String
+  permissions: UserUpdatepermissionsInput
 }
 
 input UserUpdateOneInput {
