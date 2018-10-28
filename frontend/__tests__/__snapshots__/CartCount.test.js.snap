@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CartCount /> matches the snapshot 1`] = `
+exports[`<CartCount/> matches the snapshot 1`] = `
 <CartCount__AnimationStyle>
   <TransitionGroup
     childFactory={[Function]}
@@ -9,7 +9,7 @@ exports[`<CartCount /> matches the snapshot 1`] = `
     <CSSTransition
       className="count"
       classNames="count"
-      key="10"
+      key="11"
       timeout={
         Object {
           "enter": 400,
@@ -19,14 +19,14 @@ exports[`<CartCount /> matches the snapshot 1`] = `
       unmountOnExit={true}
     >
       <CartCount__Dot>
-        10
+        11
       </CartCount__Dot>
     </CSSTransition>
   </TransitionGroup>
 </CartCount__AnimationStyle>
 `;
 
-exports[`<CartCount /> update via props 1`] = `
+exports[`<CartCount/> updates via props 1`] = `
 <CartCount__AnimationStyle>
   <TransitionGroup
     childFactory={[Function]}
@@ -52,7 +52,7 @@ exports[`<CartCount /> update via props 1`] = `
 </CartCount__AnimationStyle>
 `;
 
-exports[`<CartCount /> update via props 2`] = `
+exports[`<CartCount/> updates via props 2`] = `
 <CartCount__AnimationStyle>
   <TransitionGroup
     childFactory={[Function]}

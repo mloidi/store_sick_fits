@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Item/> renders and matches the sanpshot 1`] = `
+exports[`<Item/> renders and matches the snapshot 1`] = `
 <ItemStyles__Item>
   <img
-    alt="My item"
-    src="picture.png"
+    alt="A Cool Item"
+    src="dog.jpg"
   />
   <Title>
     <Link
@@ -12,21 +12,21 @@ exports[`<Item/> renders and matches the sanpshot 1`] = `
         Object {
           "pathname": "/item",
           "query": Object {
-            "id": "AQW1234",
+            "id": "ABC123",
           },
         }
       }
     >
       <a>
-        My item
+        A Cool Item
       </a>
     </Link>
   </Title>
   <PriceTag>
-    $20
+    $40
   </PriceTag>
   <p>
-    My description
+    This item is really cool!
   </p>
   <div
     className="buttonList"
@@ -36,7 +36,7 @@ exports[`<Item/> renders and matches the sanpshot 1`] = `
         Object {
           "pathname": "update",
           "query": Object {
-            "id": "AQW1234",
+            "id": "ABC123",
           },
         }
       }
@@ -46,10 +46,10 @@ exports[`<Item/> renders and matches the sanpshot 1`] = `
       </a>
     </Link>
     <AddToCart
-      id="AQW1234"
+      id="ABC123"
     />
     <DeleteItem
-      id="AQW1234"
+      id="ABC123"
     >
       Delete this Item
     </DeleteItem>
