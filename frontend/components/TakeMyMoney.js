@@ -38,7 +38,7 @@ class TakeMyMoney extends React.Component {
       alert(err.message);
     });
     Router.push({
-      pathname: './order',
+      pathname: '/order',
       query: { id: order.data.createOrder.id }
     });
     console.log(order);
