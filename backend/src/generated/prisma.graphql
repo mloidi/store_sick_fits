@@ -1,5 +1,5 @@
-# source: https://eu1.prisma.sh/mloidi-d9a779/dbPrisma/dev
-# timestamp: Thu Oct 25 2018 19:42:53 GMT+0200 (CEST)
+# source: https://mloidi-prod.herokuapp.com/mloidi-prod/prod
+# timestamp: Sun Oct 28 2018 11:41:30 GMT+0100 (CET)
 
 type AggregateCartItem {
   count: Int!
@@ -29,8 +29,8 @@ type BatchPayload {
 type CartItem implements Node {
   id: ID!
   quantity: Int!
-  item: Item
-  user: User!
+  item(where: ItemWhereInput): Item
+  user(where: UserWhereInput): User!
 }
 
 """A connection to a list of items."""
@@ -126,11 +126,7 @@ input CartItemSubscriptionWhereInput {
 input CartItemUpdateInput {
   quantity: Int
   item: ItemUpdateOneInput
-  user: UserUpdateOneRequiredWithoutCartInput
-}
-
-input CartItemUpdateManyInput {
-  quantity: Int
+  user: UserUpdateOneWithoutCartInput
 }
 
 input CartItemUpdateManyWithoutUserInput {
@@ -246,7 +242,7 @@ type Item implements Node {
   image: String
   largeImage: String
   price: Int!
-  user: User!
+  user(where: UserWhereInput): User!
 }
 
 """A connection to a list of items."""
@@ -355,7 +351,7 @@ input ItemUpdateDataInput {
   image: String
   largeImage: String
   price: Int
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneInput
 }
 
 input ItemUpdateInput {
@@ -364,15 +360,7 @@ input ItemUpdateInput {
   image: String
   largeImage: String
   price: Int
-  user: UserUpdateOneRequiredInput
-}
-
-input ItemUpdateManyInput {
-  title: String
-  description: String
-  image: String
-  largeImage: String
-  price: Int
+  user: UserUpdateOneInput
 }
 
 input ItemUpdateOneInput {
@@ -621,6 +609,9 @@ input ItemWhereInput {
   """All values greater than or equal the given value."""
   price_gte: Int
   user: UserWhereInput
+  _MagicalBackRelation_CartItemToItem_every: CartItemWhereInput
+  _MagicalBackRelation_CartItemToItem_some: CartItemWhereInput
+  _MagicalBackRelation_CartItemToItem_none: CartItemWhereInput
 }
 
 input ItemWhereUniqueInput {
@@ -654,11 +645,11 @@ type Mutation {
   upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
   upsertOrderItem(where: OrderItemWhereUniqueInput!, create: OrderItemCreateInput!, update: OrderItemUpdateInput!): OrderItem!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyCartItems(data: CartItemUpdateManyInput!, where: CartItemWhereInput): BatchPayload!
-  updateManyOrders(data: OrderUpdateManyInput!, where: OrderWhereInput): BatchPayload!
-  updateManyItems(data: ItemUpdateManyInput!, where: ItemWhereInput): BatchPayload!
-  updateManyOrderItems(data: OrderItemUpdateManyInput!, where: OrderItemWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyInput!, where: UserWhereInput): BatchPayload!
+  updateManyCartItems(data: CartItemUpdateInput!, where: CartItemWhereInput): BatchPayload!
+  updateManyOrders(data: OrderUpdateInput!, where: OrderWhereInput): BatchPayload!
+  updateManyItems(data: ItemUpdateInput!, where: ItemWhereInput): BatchPayload!
+  updateManyOrderItems(data: OrderItemUpdateInput!, where: OrderItemWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyCartItems(where: CartItemWhereInput): BatchPayload!
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
   deleteManyItems(where: ItemWhereInput): BatchPayload!
@@ -682,7 +673,7 @@ type Order implements Node {
   id: ID!
   items(where: OrderItemWhereInput, orderBy: OrderItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderItem!]
   total: Int!
-  user: User!
+  user(where: UserWhereInput): User!
   charge: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -722,7 +713,7 @@ type OrderItem implements Node {
   largeImage: String!
   price: Int!
   quantity: Int!
-  user: User
+  user(where: UserWhereInput): User
 }
 
 """A connection to a list of items."""
@@ -1123,6 +1114,9 @@ input OrderItemWhereInput {
   """All values greater than or equal the given value."""
   quantity_gte: Int
   user: UserWhereInput
+  _MagicalBackRelation_OrderToOrderItem_every: OrderWhereInput
+  _MagicalBackRelation_OrderToOrderItem_some: OrderWhereInput
+  _MagicalBackRelation_OrderToOrderItem_none: OrderWhereInput
 }
 
 input OrderItemWhereUniqueInput {
@@ -1193,12 +1187,7 @@ input OrderUpdateInput {
   total: Int
   charge: String
   items: OrderItemUpdateManyInput
-  user: UserUpdateOneRequiredInput
-}
-
-input OrderUpdateManyInput {
-  total: Int
-  charge: String
+  user: UserUpdateOneInput
 }
 
 input OrderWhereInput {
@@ -1573,34 +1562,18 @@ input UserUpdateInput {
   cart: CartItemUpdateManyWithoutUserInput
 }
 
-input UserUpdateManyInput {
-  name: String
-  email: String
-  password: String
-  resetToken: String
-  resetTokenExpiry: String
-  permissions: UserUpdatepermissionsInput
-}
-
 input UserUpdateOneInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
-  disconnect: Boolean
   delete: Boolean
   update: UserUpdateDataInput
   upsert: UserUpsertNestedInput
 }
 
-input UserUpdateOneRequiredInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
-}
-
-input UserUpdateOneRequiredWithoutCartInput {
+input UserUpdateOneWithoutCartInput {
   create: UserCreateWithoutCartInput
   connect: UserWhereUniqueInput
+  delete: Boolean
   update: UserUpdateWithoutCartDataInput
   upsert: UserUpsertWithoutCartInput
 }
@@ -1880,6 +1853,15 @@ input UserWhereInput {
   cart_every: CartItemWhereInput
   cart_some: CartItemWhereInput
   cart_none: CartItemWhereInput
+  _MagicalBackRelation_OrderItemToUser_every: OrderItemWhereInput
+  _MagicalBackRelation_OrderItemToUser_some: OrderItemWhereInput
+  _MagicalBackRelation_OrderItemToUser_none: OrderItemWhereInput
+  _MagicalBackRelation_ItemToUser_every: ItemWhereInput
+  _MagicalBackRelation_ItemToUser_some: ItemWhereInput
+  _MagicalBackRelation_ItemToUser_none: ItemWhereInput
+  _MagicalBackRelation_OrderToUser_every: OrderWhereInput
+  _MagicalBackRelation_OrderToUser_some: OrderWhereInput
+  _MagicalBackRelation_OrderToUser_none: OrderWhereInput
 }
 
 input UserWhereUniqueInput {

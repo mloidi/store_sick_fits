@@ -58,8 +58,7 @@ class OrderList extends React.Component {
                             Items
                           </p>
                           <p>{order.items.length} Products</p>
-                          {/* <p>{formatDistance(order.createdAt, new Date())}</p> */}
-                          <p>{format(new Date(), 'MMMM d, YYYY h:mm a')}</p>
+                          <p>{formatDistance(order.createdAt, new Date())}</p>
                           <p>{formatMoney(order.total)}</p>
                         </div>
                         <div className="images">
