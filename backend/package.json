@@ -26,7 +26,8 @@
     "stripe": "^6.36.0",
     "mem": ">=4.0.0",
     "open": ">=6.0.0",
-    "diff": ">=3.5.0"
+    "diff": ">=3.5.0",
+    "marked": ">=0.6.1"
   },
   "license": "MIT",
   "repository": {
