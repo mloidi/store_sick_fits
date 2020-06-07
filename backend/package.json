@@ -29,6 +29,11 @@
     "diff": ">=4.0.2",
     "marked": ">=1.1.0"
   },
+  "devDependencies": {
+    "apollo-server-express": ">=2.14.2",
+    "apollo-server-core": ">=2.14.2",
+    "apollo-server-lambda": ">=2.14.2"
+  },
   "license": "MIT",
   "repository": {
     "url": "mloidi.com"
