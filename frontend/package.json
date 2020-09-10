@@ -19,7 +19,7 @@
     "babel-core": "^6.26.3",
     "babel-plugin-styled-components": "^1.11.1",
     "date-fns": "^2.16.1",
-    "downshift": "^6.0.5",
+    "downshift": "^6.0.6",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
     "graphql": "^15.3.0",
@@ -35,7 +35,7 @@
     "react-dom": "^16.13.1",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^4.4.1",
-    "styled-components": "^5.1.1",
+    "styled-components": "^5.2.0",
     "waait": "^1.0.5"
   },
   "devDependencies": {
@@ -43,10 +43,11 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "casual": "^1.6.2",
     "enzyme-to-json": "^3.5.0",
-    "graphql-tools": "^6.2.0",
+    "graphql-tools": "^6.2.1",
     "jest": "^26.4.2",
     "jest-transform-graphql": "^2.1.0",
-    "serialize-javascript": ">=4.0.0"
+    "serialize-javascript": ">=5.0.1",
+    "yargs-parser": ">=20.0.0"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
