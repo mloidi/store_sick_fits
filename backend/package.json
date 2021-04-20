@@ -27,7 +27,7 @@
     "mem": ">=6.1.1",
     "open": ">=7.2.1",
     "diff": ">=4.0.2",
-    "marked": ">=1.1.1"
+    "marked": ">=2.0.0"
   },
   "devDependencies": {
     "apollo-server-express": ">=2.17.0",
